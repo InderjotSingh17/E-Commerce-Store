@@ -1,0 +1,56 @@
+{% load static %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center mb-5 fw-bold text-primary">🛒 Your Shopping Cart</h2>
+
+    {% if items %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center shadow-sm rounded-3 overflow-hidden">
+            <thead class="table-success">
+                <tr>
+                    <th>Product</th>
+                    <th>Price (₹)</th>
+                    <th>Quantity</th>
+                    <th>Subtotal (₹)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                {% for item in items %}
+                <tr>
+                    <td class="fw-semibold">{{ item.product.name }}</td>
+                    <td>{{ item.product.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td class="fw-medium">{{ item.get_total_price }}</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <a href="{% url 'add-to-cart' item.product.pk %}" class="btn btn-sm btn-outline-success" title="Increase">+</a>
+                            <a href="{% url 'decrease-quantity' item.product.pk %}" class="btn btn-sm btn-outline-warning" title="Decrease">−</a>
+                            <a href="{% url 'remove-from-cart' item.product.pk %}" class="btn btn-sm btn-outline-danger" title="Remove">×</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Total Amount -->
+    <div class="text-end fs-4 fw-bold mt-4">
+        Total: ₹{{ total }}
+    </div>
+
+    <!-- Proceed to Checkout Button -->
+    <div class="text-end mt-3">
+        <a href="{% url 'checkout' %}" class="btn btn-lg btn-primary shadow">Proceed to Checkout</a>
+    </div>
+
+    {% else %}
+    <div class="text-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" alt="Empty Cart" width="150" class="mb-3">
+        <p class="fs-5">Your cart is empty 😞</p>
+        <a href="{% url 'product-list' %}" class="btn btn-outline-secondary">Browse Products</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
