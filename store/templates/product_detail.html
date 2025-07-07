@@ -42,8 +42,6 @@
                     <h2 class="mb-3">{{ product.name }}</h2>
                     <span class="price-badge mb-3 fs-5">₹{{ product.price }}</span>
                     <p class="text-muted">{{ product.description }}</p>
-
-                    <!-- ✅ Add to Cart Button -->
                     <form action="{% url 'add-to-cart' product.pk %}" method="post" class="mt-4">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-success btn-custom">🛒 Add to Cart</button>
