@@ -1,0 +1,4 @@
+Django>=5.0
+stripe
+python-dotenv
+django-crispy-forms
